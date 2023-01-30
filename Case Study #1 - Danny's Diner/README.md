@@ -185,7 +185,6 @@ WITH item_order AS
 	JOIN menu AS m
 		ON s.product_id = m.product_id
 	)
-    
 SELECT
 	customer_id,
 	product_name
@@ -415,8 +414,8 @@ GROUP BY 1
 
 #### **Steps :**
 - Condition :
-    - All products except sushi = 1 dollar spent get 10 points
-    - Sushi (product_id 1) = 1 dollar spent get 2 x 10 points
+    - All products except sushi = each 1 x 10 points
+    - Sushi (product_id 1) = each 1 x (2 x 10) points
 - Create cte and use **CASE WHEN** to create conditional statements to calculate `points`
 - Use **SUM** and **GROUP BY** `customer_id` to get the total points for each customer
 
@@ -461,17 +460,17 @@ ORDER BY 1
 
 #### **Steps :**
 - Condition :
-    1. On day X - day 1 becomes a member (`join_date`), 
-        - points except sushi = dollar * 10
-        - points sushi = dollar * 20 <br>
+    - day X - `join_date`, 
+        - points except sushi = each 1 * 10
+        - points sushi = each 1 * 20 <br>
           <br>
 
-    2. On day 1 join_date - day 7 valid_date
-        - points all = dollar * 20 <br>
+    -  `join_date` - day 7 join date
+        - points all item = each 1 * 20 <br>
         <br>
 
-    3. On day 8 to last_day of Jan 2021
-        - Requirement for points same as 1
+    - day 8 - last day of Jan 2021
+        - Requirement for points same as before member
 
 - Use **CASE WHEN** to create conditional statements and **GROUP BY** to calculate points each customer A and B.
 
