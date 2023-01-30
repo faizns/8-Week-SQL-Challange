@@ -10,9 +10,9 @@ Danny wants to use the data to answer a few simple questions about his customers
 
 ## 🍜 **Dataset**
 Danny has shared with you 3 key datasets for this case study:
-- sales
-- menu
-- members
+- `sales`
+- `menu`
+- `members`
 
 ### **ERD**
 
@@ -20,7 +20,7 @@ Danny has shared with you 3 key datasets for this case study:
   <summary>Click to view ERD</summary>
 
 <p align="center">
-  <kbd><img src="assets/erd.png" width=800px> </kbd> <br>
+  <kbd><img src="assets/ERD.png" width=800px> </kbd> <br>
 </p>
 
 </details>
@@ -127,9 +127,9 @@ ORDER BY 2 DESC
   <kbd><img src="assets/1.png" width=320px> </kbd> <br>
 </p>
 
-- Customer A spent 76 dolars
-- Customer B spent 74 dolars
-- Customer C spent 36 dolars
+- Customer A spent 76 dolar
+- Customer B spent 74 dolar
+- Customer C spent 36 dolar
 
 <br>
 
