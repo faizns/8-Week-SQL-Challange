@@ -8,19 +8,19 @@ DATA CLEANING
 -- Create table
 CREATE TABLE cleaned_customer_order AS
 WITH order_cte AS (
-  SELECT
-    order_id,
-        customer_id,
-        pizza_id,
-        CASE 
+	SELECT
+		order_id,
+		customer_id,
+		pizza_id,
+		CASE 
 			WHEN exclusions IN ('null', '') THEN '0'
 			ELSE exclusions
 			END AS exclusions,
 		CASE 
-		    WHEN extras IS NULL OR extras IN ('null', '') THEN '0'
+			WHEN extras IS NULL OR extras IN ('null', '') THEN '0'
 			ELSE extras
 			END AS extras,
-	    order_time
+		order_time
 	FROM customer_orders),
 	
 -- add number columns each order & pizza
@@ -29,7 +29,7 @@ order_number_cte AS (
 		ROW_NUMBER() OVER(order by order_id, pizza_id) AS numbers, * 
 	FROM order_cte),
 
--- split exclusion column and covert to integer
+-- split exclusion and covert to integer
 exclusion_cte AS (
 	SELECT
 		numbers, order_id, customer_id, pizza_id,
@@ -38,7 +38,7 @@ exclusion_cte AS (
 		order_time
 	FROM order_number_cte)
 
--- split extras column and covert to integer
+-- split extras and covert to integer
 	SELECT
 		numbers, order_id, customer_id, pizza_id, exclusions,
 		REGEXP_SPLIT_TO_TABLE(extras, '[,\s]+'):: INTEGER AS extras,
@@ -46,13 +46,14 @@ exclusion_cte AS (
 	FROM exclusion_cte
 	
 	
+-- -----------------------------------------------------------------------------------	
 
 -- Columns : runner_orders
 -- Create temporary table
 CREATE TABLE cleaned_runner_orders AS
 SELECT 
 	order_id,
-    runner_id,
+	runner_id,
 	CASE
 		WHEN pickup_time LIKE 'null' THEN NULL
 		ELSE pickup_time::timestamp
@@ -77,6 +78,7 @@ SELECT
 FROM runner_orders
 
 
+-- -----------------------------------------------------------------------------------	
 
 -- Column : pizza_names
 -- corvert datatype text to varchar
@@ -86,18 +88,19 @@ CREATE TABLE cleaned_pizza_names AS
 		CAST(pizza_name AS varchar) AS pizza_name
 	FROM pizza_names
 	
-    
+	
+-- -----------------------------------------------------------------------------------	
     
 -- Column : pizza_recipes
 CREATE TABLE cleaned_pizza_recipes AS
-SELECT
-    pizza_id,
-    REGEXP_SPLIT_TO_TABLE(toppings, '[,\s]+')::INTEGER toppings
+	SELECT
+		pizza_id,
+		REGEXP_SPLIT_TO_TABLE(toppings, '[,\s]+')::INTEGER toppings
 FROM pizza_recipes 
 ORDER BY 1
 
 
-
+-- -----------------------------------------------------------------------------------	
 
 -- Column : pizza_topping
 CREATE TABLE cleaned_pizza_toppings AS
